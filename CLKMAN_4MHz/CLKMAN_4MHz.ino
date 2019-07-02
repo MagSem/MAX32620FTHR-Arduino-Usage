@@ -61,14 +61,16 @@ uint8_t LED_Status[] = {0, 0, 0, 0};
 // U8GLIB Display which does not send AC
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
-//---------------------------------------------------------------
+//----------------------------------------------------------------------------->
+// Send String to OLED to x-y coordinats (0,0 - left up corner)
 void StringToOLED(char *s, uint8_t x, uint8_t y)
 {
-  u8g2.clearBuffer();         // clear the internal memory
+  u8g2.clearBuffer();                 // clear the internal memory
   u8g2.setFont(u8g2_font_ncenB08_tr); // choose a suitable font
-  u8g2.drawStr(x, y, s);  // write something to the internal memory
-  u8g2.sendBuffer();          // transfer internal memory to the display
+  u8g2.drawStr(x, y, s);              // write something to the internal memory
+  u8g2.sendBuffer();                  // transfer internal memory to the display
 }
+//-----------------------------------------------------------------------------<
 
 // 5. Functions - finish
 //=============================================================================<
@@ -89,7 +91,7 @@ void setup(void)
   // USB to Serial (PC to uC)
   Serial.begin(0);
 
-  // Initialize the OLED. 
+  // Initialize the OLED 
   u8g2.begin();
 
 }
@@ -106,27 +108,26 @@ void loop(void)
 
   while(i--)
   {
-
     // Set the System clock to the 96MHz oscillator
     CLKMAN_SetSystemClock(CLKMAN_SYSTEM_SOURCE_96MHZ, CLKMAN_SYSTEM_SCALE_DIV_1);
+    LED_On(2);
+    LED_Off(1);
     StringToOLED("96 Mhz clock", 0, 10);
-    LED_On(1);
-    LED_Off(0);
     TMR_Delay(MXC_TMR0, SEC(1));
 
     // Set the System clock to the 4MHz oscillator
     CLKMAN_SetSystemClock(CLKMAN_SYSTEM_SOURCE_4MHZ, CLKMAN_SYSTEM_SCALE_DIV_1);
+    LED_Off(2);
+    LED_On(1);
     StringToOLED("4 Mhz clock", 0, 10);
-    LED_Off(1);
-    LED_On(0);
     TMR_Delay(MXC_TMR0, SEC(1));
   }
     
   // Set the System clock to the 96MHz oscillator
   CLKMAN_SetSystemClock(CLKMAN_SYSTEM_SOURCE_96MHZ, CLKMAN_SYSTEM_SCALE_DIV_1);
+  LED_On(2);
+  LED_Off(1);   
   StringToOLED("96 Mhz clock", 0, 10);
-  LED_On(1);
-  LED_Off(0);   
 
   while(1) {}
 }
