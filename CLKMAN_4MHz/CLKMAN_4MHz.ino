@@ -3,7 +3,7 @@
 
 // Author:    MagSem
 // Fork:      Maxim Integrated Firmware
-// Data:      02.07.2019
+// Data:      03.07.2019
 // Details:   Rewrite Maxim Integrated EvKit examples to Arduino       
 // uC board:  MAX32620FTHR
 
@@ -58,8 +58,10 @@ uint8_t LED_Status[] = {0, 0, 0, 0};
 //=============================================================================>
 // 5. Functions - start
 
+//----------------------------------------------------------------------------->
 // U8GLIB Display which does not send AC
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+//-----------------------------------------------------------------------------<
 
 //----------------------------------------------------------------------------->
 // Send String to OLED to x-y coordinats (0,0 - left up corner)
@@ -93,7 +95,6 @@ void setup(void)
 
   // Initialize the OLED 
   u8g2.begin();
-
 }
 
 // 6. SetUp - finish
@@ -128,6 +129,11 @@ void loop(void)
   LED_On(2);
   LED_Off(1);   
   StringToOLED("96 Mhz clock", 0, 10);
+  TMR_Delay(MXC_TMR0, SEC(1));
+  LED_Off(2);
+  LED_Off(1);   
+  StringToOLED("The End", 0, 10);
+  StringToOLED("Switch Power Off", 0, 30);
 
   while(1) {}
 }
