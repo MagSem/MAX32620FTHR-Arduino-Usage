@@ -9,4 +9,12 @@ https://github.com/olikraus/u8g2
 
 HARD:
 
-MAX32620FTHR OLED SSD1306
+MAX32620FTHR -> OLED SSD1306 I2C:
+
+3V  -> VCC
+
+GND -> GND
+
+SCL(P3_5) -> SCL
+
+SDA(P3_4) -> SDA
